@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//throttle[3 task per 2 minute] 
+Route::group(['prefix' => '/v1', 'middleware' => [/* 'throttle:3,2' */]], function () {
+
+    Route::name('api.v1.')->group(function () {
+        Route::resource('/categories', 'Category\CategoriesController');
+    });
+});

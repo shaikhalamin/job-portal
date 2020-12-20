@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories =  Category::all();
+        $categories = Category::where('status', 'Active')->with(['user'])->paginate(8);
+
         return view('admin.category.index', compact('categories'));
     }
 
@@ -37,7 +44,18 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category = new Category();
+        $category->name = $request->name;
+        $category->status = 'Active';
+        $category->user_id = auth()->user()->id;
+
+        $category->save();
+
+        return redirect(route('categories.index'))->with('created', 'Category created successfully');
     }
 
     /**
@@ -59,7 +77,7 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -71,7 +89,15 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category->name = $request->name;
+        $category->user_id = auth()->user()->id;
+        $category->save();
+
+        return redirect(route('categories.index'))->with('created', 'Category updated successfully');
     }
 
     /**

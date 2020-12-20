@@ -21,3 +21,9 @@ A super admin will create job category allow job poster to add jobs and maitain 
 It will be implemented as a REST API Service and consumed by React application
 
 ```
+
+#Create controller with model
+
+```
+php artisan make:controller API/v1/Category/CategoriesController --api --model=Model\\Category
+```

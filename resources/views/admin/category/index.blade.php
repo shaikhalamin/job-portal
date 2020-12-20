@@ -33,7 +33,7 @@
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->status }}</td>
-                                <td></td>
+                                <td>{{ ucfirst($category->user->name) }}</td>
                                 <td>{{ $category->created_at }}</td>
                                 <td>{{ $category->updated_at }}</td>
 

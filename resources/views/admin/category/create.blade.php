@@ -13,7 +13,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name" class="">Category Name</label>
-                                <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror " id="name">
+                                <input type="text" name="name" value="{{ old('name') }}" autocomplete="off" class="form-control @error('name') is-invalid @enderror " id="name">
                                 @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
